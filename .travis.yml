@@ -43,7 +43,6 @@ matrix:
 
 before_install:
   # MacOS setups
-  # - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
   # Install specific GHC version
   - if [[ "$TRAVIS_OS_NAME" == "osx" && "$GHCVER" == "8.0.2" ]]; then brew install ghc@8.0 cabal-install && export PATH=/usr/local/opt/ghc@8.0/bin:$PATH; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" && "$GHCVER" == "8.2.2" ]]; then brew install ghc     cabal-install && export PATH=/usr/local/opt/ghc/bin:$PATH; fi
@@ -61,7 +60,8 @@ install:
   - cabal update
   # Overlay Hackage Package Index for GHC HEAD: https://github.com/hvr/head.hackage
   - |
-    if $GHCHEAD; then
+    if $GHCHEAD=true; then
+      sed -i.bak 's/-- allow-newer:.*/allow-newer: *:base, *:template-haskell, *:ghc, *:Cabal/' ${HOME}/.cabal/config
       touch ${HOME}/.cabal/config
       echo 'repository head.hackage'                                                        >> ${HOME}/.cabal/config
       echo '   url: http://head.hackage.haskell.org/'                                       >> ${HOME}/.cabal/config
