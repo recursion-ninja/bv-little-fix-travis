@@ -72,7 +72,8 @@ install:
 
   # Install dependencies and utility programs
   - cabal install --enable-benchmarks --enable-tests --only-dependencies
-  - cabal install hpc-coveralls -v2
+  - cabal install hpc
+  - cabal install hpc-coveralls
 
 script:
   - cabal configure --enable-coverage --enable-benchmarks --enable-tests
