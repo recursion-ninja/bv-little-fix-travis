@@ -59,8 +59,9 @@ install:
   - echo "$(ghc --version) [$(ghc --print-project-git-commit-id 2> /dev/null || echo '?')]"
   - cabal update
   # Overlay Hackage Package Index for GHC HEAD: https://github.com/hvr/head.hackage
+  - GHCHEAD=${GHCHEAD-false}
   - |
-    if $GHCHEAD=true; then
+    if $GHCHEAD; then
       sed -i.bak 's/-- allow-newer:.*/allow-newer: *:base, *:template-haskell, *:ghc, *:Cabal/' ${HOME}/.cabal/config
       touch ${HOME}/.cabal/config
       echo 'repository head.hackage'                                                        >> ${HOME}/.cabal/config
