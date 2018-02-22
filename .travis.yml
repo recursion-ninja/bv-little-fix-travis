@@ -1,10 +1,5 @@
 language: generic
 
-cache:
-  directories:
-    - ~/.ghc
-    - ~/.cabal
-
 matrix:
   include:
     # MacOS builds
@@ -55,15 +50,16 @@ before_install:
   #"echo $GHCVER"
 
 install:
-  - cabal --version
+  # Preliminary output and setup
   - echo "$(ghc --version) [$(ghc --print-project-git-commit-id 2> /dev/null || echo '?')]"
+  - cabal --version
   - cabal update
+
   # Overlay Hackage Package Index for GHC HEAD: https://github.com/hvr/head.hackage
   - GHCHEAD=${GHCHEAD-false}
   - |
     if $GHCHEAD; then
       sed -i.bak 's/-- allow-newer:.*/allow-newer: *:base, *:template-haskell, *:ghc, *:Cabal/' ${HOME}/.cabal/config
-      touch ${HOME}/.cabal/config
       echo 'repository head.hackage'                                                        >> ${HOME}/.cabal/config
       echo '   url: http://head.hackage.haskell.org/'                                       >> ${HOME}/.cabal/config
       echo '   secure: True'                                                                >> ${HOME}/.cabal/config
@@ -73,8 +69,10 @@ install:
       echo '   key-threshold: 3'                                                            >> ${HOME}/.cabal.config
       cabal update -v
     fi
+
+  # Install dependencies and utility programs
   - cabal install --enable-benchmarks --enable-tests --only-dependencies
-  - cabal install hpc-coveralls
+  - cabal install hpc-coveralls -v2
 
 script:
   - cabal configure --enable-coverage --enable-benchmarks --enable-tests
@@ -91,5 +89,14 @@ after_script:
                   --exclude-dir=tests
                   test-suite
 
+cache:
+  directories:
+    - ~/.ghc
+    - ~/.cabal
+
+git:
+  submodules: false
+ 
 notifications:
   email: false
+
