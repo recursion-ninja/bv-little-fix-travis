@@ -61,9 +61,6 @@ install:
   - |
     if $GHCHEAD; then
       touch ${HOME}/.cabal/config
-      sed -i.bak 's/^jobs:/-- jobs:/' ${HOME}/.cabal/config
-      sed -i.bak 's/-- allow-newer:.*/allow-newer: *:base, *:template-haskell, *:ghc, *:Cabal/' ${HOME}/.cabal/config
-
       echo 'repository head.hackage'                                                        >> ${HOME}/.cabal/config
       echo '   url: http://head.hackage.haskell.org/'                                       >> ${HOME}/.cabal/config
       echo '   secure: True'                                                                >> ${HOME}/.cabal/config
