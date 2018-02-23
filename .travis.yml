@@ -65,6 +65,7 @@ install:
   - GHCHEAD=${GHCHEAD-false}
   - |
     if $GHCHEAD; then
+      sed -i.bak 's/^jobs:/-- jobs:/' ${HOME}/.cabal/config
       sed -i.bak 's/-- allow-newer:.*/allow-newer: *:base, *:template-haskell, *:ghc, *:Cabal/' ${HOME}/.cabal/config
       cat ${HOME}/.cabal/config
       echo 'repository head.hackage'                                                        >> ${HOME}/.cabal/config
