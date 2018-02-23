@@ -48,7 +48,7 @@ before_install:
 
   # Determine GHC & Cabal version
   - GHCVER=$(ghc --numeric-version)
-  - CABALVER=$(cabal --numeric-version)
+  - CABALVER=$(cabal --numeric-version | sed -e 's/\([0-9]\+\.[0-9]\+\).*/\1/') # RegEx gets first 2 digits of version
   - echo $GHCVER
   - echo $CABALVER
 
