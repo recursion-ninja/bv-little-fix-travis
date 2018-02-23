@@ -47,8 +47,8 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export PATH=/opt/ghc/bin:/opt/cabal/bin:$HOME/.cabal/bin:$PATH; fi
 
   # Determine GHC & Cabal version
-  - GHCVER=$(( $( ghc --numeric-version ) ))
-  - CABALVER=$(( $( ghc --numeric-version ) ))
+  - GHCVER=$(ghc --numeric-version)
+  - CABALVER=$(cabal --numeric-version)
   - echo $GHCVER
   - echo $CABALVER
 
