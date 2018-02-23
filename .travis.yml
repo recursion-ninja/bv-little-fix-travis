@@ -47,8 +47,8 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export PATH=/opt/ghc/bin:/opt/cabal/bin:$HOME/.cabal/bin:$PATH; fi
 
   # Determine GHC & Cabal version
-  # Regular expression gets only the major and minor version numbers (first two points) if there are than two supplied
-  - GHCVER=$(ghc --numeric-version | sed -e 's/\([0-9]\+\.[0-9]\+\).*/\1/')
+  # Regular expression gets only the first two or three most significant version numbers if more were supplied
+  - GHCVER=$(ghc --numeric-version | sed -e 's/\([0-9]\+\.[0-9]\+\.[0-9]\+\).*/\1/')
   - CABALVER=$(cabal --numeric-version  | sed -e 's/\([0-9]\+\.[0-9]\+\).*/\1/')
   - echo $GHCVER
   - echo $CABALVER
@@ -83,7 +83,6 @@ install:
   - cabal install --enable-benchmarks --enable-tests --only-dependencies
   - cabal install hpc
   - cabal install hpc-coveralls
-  - find / -type f -name "hpc"
 
 script:
   - cabal configure --enable-coverage --enable-benchmarks --enable-tests
