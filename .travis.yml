@@ -75,7 +75,7 @@ install:
   - cabal install --enable-benchmarks --enable-tests --only-dependencies
   - cabal install hpc
   - cabal install hpc-coveralls
-  - find ~/ -type f -name "hpc"
+  - find / -type f -name "hpc"
 
 script:
   - cabal configure --enable-coverage --enable-benchmarks --enable-tests
