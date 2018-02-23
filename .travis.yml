@@ -47,8 +47,9 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export PATH=/opt/ghc/bin:/opt/cabal/bin:$HOME/.cabal/bin:$PATH; fi
 
   # Determine GHC & Cabal version
-  - GHCVER=$(ghc --numeric-version)
-  - CABALVER=$(cabal --numeric-version | sed -e 's/\([0-9]\+\.[0-9]\+\).*/\1/') # RegEx gets first 2 digits of version
+  # Regular expression gets only the major and minor version numbers (first two points) if there are than two supplied
+  - GHCVER=$(ghc --numeric-version | sed -e 's/\([0-9]\+\.[0-9]\+\).*/\1/')
+  - CABALVER=$(cabal --numeric-version  | sed -e 's/\([0-9]\+\.[0-9]\+\).*/\1/')
   - echo $GHCVER
   - echo $CABALVER
 
