@@ -81,8 +81,6 @@ install:
   - cabal install --enable-benchmarks --enable-tests --only-dependencies
   - cabal install hpc
   - cabal install hpc-coveralls
-  - which hpc
-  - ls /opt/cabal
 
 script:
   - cabal configure --enable-coverage --enable-benchmarks --enable-tests
