@@ -43,20 +43,16 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" && "$GHCVER" == "8.2.2" ]]; then brew install ghc     cabal-install && export PATH=/usr/local/opt/ghc/bin:$PATH; fi
 
   # Linux setups initial setup
-  # Export PATH to installed Cabal & GHC versions
-  #- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export PATH=/opt/ghc/bin:/opt/cabal/bin:$HOME/.cabal/bin:$PATH; fi
-
-  # Determine GHC & Cabal version
-
   # Export PATH to specific GHC & Cabal version specific programs
   - |
     if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       GHCVERDIR=$(   ls /opt/ghc   | head -1 )
       CABALVERDIR=$( ls /opt/cabal | head -1 )
-      echo $GHCVER
-      echo $CABALVER
       export PATH=/opt/ghc/$GHCVERDIR/bin:/opt/cabal/$CABALVERDIR/bin:$PATH
     fi
+
+  - which ghc
+  - ls /opt/ghc
 
 install:
   # Preliminary output and setup
