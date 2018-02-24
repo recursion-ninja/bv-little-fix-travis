@@ -48,10 +48,12 @@ before_install:
 
   # Determine GHC & Cabal version
   # Regular expression gets only the first two or three most significant version numbers if more were supplied
-  - GHCVER=$(ghc --numeric-version | sed -e 's/\([0-9]\+\.[0-9]\+\.[0-9]\+\).*/\1/')
-  - CABALVER=$(cabal --numeric-version  | sed -e 's/\([0-9]\+\.[0-9]\+\).*/\1/')
+  - GHCVER=$(  ghc   --numeric-version | sed -e 's/\([0-9]\+\.[0-9]\+\.[0-9]\+\).*/\1/')
+  - CABALVER=$(cabal --numeric-version | sed -e 's/\([0-9]\+\.[0-9]\+\).*/\1/')
   - echo $GHCVER
   - echo $CABALVER
+  - ls /opt/ghc
+  - ls /opt/cabal
 
   # Export PATH to specific GHC & Cabal version specific programs
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:$PATH; fi
