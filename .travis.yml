@@ -46,8 +46,8 @@ before_install:
   # Export PATH to specific GHC & Cabal version specific programs
   - |
     if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      GHCVERDIR=$(   ls /opt/ghc   | grep '[0-9]\.[0-9]\.[0-9].*' | head -1 )
-      CABALVERDIR=$( ls /opt/cabal | grep '[0-9]\.[0-9].*' | head -1 )
+      GHCVERDIR=$(   ls /opt/ghc   | grep -E '[0-9]+\.[0-9]+\.[0-9]+' | head -1 )
+      CABALVERDIR=$( ls /opt/cabal | grep -E '[0-9]+\.[0-9]+'         | head -1 )
       export PATH=/opt/ghc/$GHCVERDIR/bin:/opt/cabal/$CABALVERDIR/bin:$PATH
     fi
 
