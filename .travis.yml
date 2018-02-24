@@ -51,9 +51,6 @@ before_install:
       export PATH=/opt/ghc/$GHCVERDIR/bin:/opt/cabal/$CABALVERDIR/bin:$PATH
     fi
 
-  - which ghc
-  - ls /opt/ghc
-
 install:
   # Preliminary output and setup
   - echo "$(ghc --version) [$(ghc --print-project-git-commit-id 2> /dev/null || echo '?')]"
